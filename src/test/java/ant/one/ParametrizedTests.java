@@ -8,9 +8,6 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
-
-import java.awt.desktop.ScreenSleepEvent;
-import java.util.List;
 import java.util.stream.Stream;
 
 import static com.codeborne.selenide.Condition.text;
@@ -33,7 +30,8 @@ public class ParametrizedTests {
         Selenide.$("#header_login").click();
         Selenide.$("input[name='email']").setValue(testData);
         Selenide.$("input[name='password']").click();
-        Selenide.$$(".css-tmpver").find(text("Пожалуйста, введите правильный адрес электронной почты")).shouldBe(visible);
+        Selenide.sleep(5000);
+        Selenide.$$("#wrap_app").find(text("Пожалуйста, введите правильный адрес электронной почты")).shouldBe(visible);
     }
 
     @CsvSource(value = {
@@ -46,7 +44,7 @@ public class ParametrizedTests {
         Selenide.$("input[name='email']").setValue(email);
         Selenide.$("input[name='password']").setValue(password).pressEnter();
         Selenide.sleep(5000);
-        Selenide.$$(".css-gvz19r").find(text("Security Verification")).shouldBe(visible);
+        Selenide.$("#wi").find("Security Verification").shouldBe(visible);
     }
 
     @MethodSource(value = "mixedArgumentsTestDataProvider")
@@ -56,7 +54,7 @@ public class ParametrizedTests {
         Selenide.$("input[name='email']").setValue(email);
         Selenide.$("input[name='password']").setValue(password).pressEnter();
         Selenide.sleep(5000);
-        Selenide.$$(".css-gvz19r").find(text("Security Verification")).shouldBe(visible);;
+        Selenide.$("#wi").find("Security Verification").shouldBe(visible);
     }
     static Stream<Arguments> mixedArgumentsTestDataProvider() {
         return Stream.of(
